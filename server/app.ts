@@ -1,16 +1,24 @@
-import express, { Express, Request, Response } from 'express';
+import express from 'express';
+import cors from 'cors';
+import usersRouter from './user/user.routes';
+import { dbConnect } from './utils/dbConnect';
+import { errorHandler } from './middlewares/errorHandler';
+import authRouter from './auth/auth.routes';
 
-const app: Express = express();
+const app = express();
 
+dbConnect();
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  })
+);
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response): void => {
-  res.send('Hello from a ExpressTS server');
-});
+app.use('/api/login', authRouter);
+app.use('/api/users', usersRouter);
 
-app.post('/api/users', (req: Request, res: Response): void => {
-  const { body } = req;
-  res.json(body);
-});
+app.use(errorHandler);
 
 export default app;

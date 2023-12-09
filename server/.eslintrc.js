@@ -9,7 +9,7 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: [],
       parserOptions: {
         sourceType: 'script',
       },
@@ -19,5 +19,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    eqeqeq: 'warn',
+    strict: 'on',
+    semi: [1, 'always'],
+  },
 };
