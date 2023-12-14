@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
-import { type User } from './user.types';
+import { IDatabaseUser } from './user.types';
 
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema<IDatabaseUser>({
   username: {
     type: String,
     required: [true, 'Username field is required'],
+    unique: true,
     minlength: 1,
   },
   email: {
@@ -35,6 +36,6 @@ userSchema.set('toJSON', {
   },
 });
 
-const UserModel = mongoose.model<User>('User', userSchema);
+const UserModel = mongoose.model<IDatabaseUser>('User', userSchema);
 
 export default UserModel;

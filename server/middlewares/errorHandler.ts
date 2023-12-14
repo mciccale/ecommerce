@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { MongooseError } from 'mongoose';
 import { ZodError } from 'zod';
 
 export const errorHandler = (
@@ -9,7 +10,9 @@ export const errorHandler = (
 ) => {
   if (error instanceof ZodError) {
     res.status(400).json({ message: error.message });
+  } else if (error instanceof MongooseError) {
+    res.status(400).json({ message: error.message });
   } else {
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 };

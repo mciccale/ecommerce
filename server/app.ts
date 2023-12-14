@@ -1,9 +1,9 @@
-import express from 'express';
 import cors from 'cors';
-import usersRouter from './user/user.routes';
+import express from 'express';
+import userRouter from './user/user.routes';
+import loginRouter from './login/login.routes';
 import { dbConnect } from './utils/dbConnect';
 import { errorHandler } from './middlewares/errorHandler';
-import authRouter from './auth/auth.routes';
 
 const app = express();
 
@@ -16,8 +16,8 @@ app.use(
 );
 app.use(express.json());
 
-app.use('/api/login', authRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/users', userRouter);
 
 app.use(errorHandler);
 

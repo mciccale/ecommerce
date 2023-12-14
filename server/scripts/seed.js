@@ -32,14 +32,13 @@ const dummyUsers = [
       return new UserModel({ email, username, passwordHash }).save();
     });
 
-    Promise.all(promiseArray);
+    await Promise.all(promiseArray);
 
-    const users = await UserModel.find({});
-
-    console.log(users, users.length);
+    console.log('Database Seeding Complete!');
   } catch (e) {
     console.error(e);
+    return;
   } finally {
-    await mongoose.connection.close();
+    mongoose.connection.close();
   }
 })();

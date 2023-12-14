@@ -1,14 +1,21 @@
-import { type User } from './user.types';
+import bcrypt from 'bcrypt';
+import { IDatabaseUser, IRequestUser } from './user.types';
 import UserModel from './user.model';
 
 export class UserService {
-  static getAll = async (): Promise<User[]> => {
+  static getAll = async (): Promise<IDatabaseUser[]> => {
     const users = await UserModel.find({});
     return users;
   };
 
-  static create = async (user: User): Promise<User> => {
-    const createdUser = await new UserModel(user).save();
+  static create = async (user: IRequestUser): Promise<IDatabaseUser> => {
+    const passwordHash = await bcrypt.hash(user.password, 10);
+    const createdUser = await new UserModel({
+      passwordHash,
+      email: user.email,
+      username: user.username,
+    }).save();
+
     return createdUser;
   };
 

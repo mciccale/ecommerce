@@ -23,5 +23,7 @@ module.exports = {
     eqeqeq: 'warn',
     strict: 'on',
     semi: [1, 'always'],
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
 };

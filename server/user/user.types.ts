@@ -1,6 +1,12 @@
-export type User = {
+interface IUser {
   username: string;
   email: string;
-  password?: string;
-  passwordHash?: string;
-};
+}
+
+export interface IRequestUser extends IUser {
+  password: string;
+}
+
+export interface IDatabaseUser extends IUser {
+  passwordHash: string;
+}

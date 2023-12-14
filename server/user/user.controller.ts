@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import bcrypt from 'bcrypt';
 import { UserService } from './user.service';
-import { type User } from './user.types';
+import { IRequestUser, IDatabaseUser } from './user.types';
 
 export default class UserController {
   static getAll = async (
@@ -23,13 +22,12 @@ export default class UserController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { email, username, password }: User = req.body;
+      const { email, username, password }: IRequestUser = req.body;
 
-      const passwordHash = await bcrypt.hash(password as string, 10);
       const createdUser = await UserService.create({
         email,
         username,
-        passwordHash,
+        password,
       });
 
       res.status(201).json(createdUser);
