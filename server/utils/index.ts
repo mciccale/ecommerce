@@ -1,3 +1,5 @@
 import config from './config';
 import logger from './logger';
-export { config, logger };
+import accessToken from './accessToken';
+
+export { config, logger, accessToken };

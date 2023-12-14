@@ -12,11 +12,7 @@ export default class LoginController {
       const requestLogin: IRequestLogin = req.body;
       const result = await UserService.login(requestLogin);
 
-      if (result === 'Wrong Credentials') {
-        res.status(404).send(result);
-      } else {
-        res.status(201).send(result);
-      }
+      res.status(201).send(result);
     } catch (e) {
       next(e);
     }
