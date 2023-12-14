@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
-import { IRequestLogin, ILoginToken } from './login.types';
+import { IRequestLogin } from './login.types';
 import UserModel from '../user/user.model';
 import { accessToken } from '../utils';
 import LoginError from './login.error';
 
 class LoginService {
-  static login = async (login: IRequestLogin): Promise<ILoginToken> => {
+  static login = async (login: IRequestLogin): Promise<string> => {
     const user = await UserModel.findOne({
       username: login.username,
     });
@@ -26,7 +26,7 @@ class LoginService {
       throw new LoginError('Incorrect password', 400);
     }
 
-    return { token: accessToken.generate(user.username) };
+    return accessToken.generate(user.username);
   };
 }
 

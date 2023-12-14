@@ -8,6 +8,13 @@ export class UserService {
     return users;
   };
 
+  static getByUsername = async (
+    username: string
+  ): Promise<IDatabaseUser | null> => {
+    const user = await UserModel.findOne({ username });
+    return user;
+  };
+
   static create = async (user: IRequestUser): Promise<IDatabaseUser> => {
     const passwordHash = await bcrypt.hash(user.password, 10);
     const createdUser = await new UserModel({

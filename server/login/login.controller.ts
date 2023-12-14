@@ -10,9 +10,11 @@ class LoginController {
   ): Promise<void> => {
     try {
       const requestLogin: IRequestLogin = req.body;
-      const result = await LoginService.login(requestLogin);
+      const token = await LoginService.login(requestLogin);
 
-      res.status(201).send(result);
+      // Only for browser
+      res.cookie('token', token, { httpOnly: true, secure: true });
+      res.status(201).json({ token });
     } catch (e) {
       next(e);
     }
