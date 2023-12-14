@@ -1,4 +1,4 @@
-class UserError extends Error {
+class LoginError extends Error {
   name: string;
   message: string;
   status: number;
@@ -11,4 +11,4 @@ class UserError extends Error {
   }
 }
 
-export default UserError;
+export default LoginError;

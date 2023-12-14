@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { IRequestLogin, ILoginToken } from './login.types';
-import { accessToken } from '../utils';
-import UserModel from '../user/user.model';
-import UserError from '../user/user.error';
+import { accessToken } from '@/utils';
+import UserModel from '@/user/user.model';
+import LoginError from './login.error';
 
 export class UserService {
   static login = async (login: IRequestLogin): Promise<ILoginToken> => {
@@ -10,17 +10,22 @@ export class UserService {
       username: login.username,
     });
 
-    if (!user) throw new UserError('User not found', 404);
+    if (!user) {
+      throw new LoginError(
+        `User with username "${login.username}" not found`,
+        404
+      );
+    }
 
     const passwordCorrect = await bcrypt.compare(
       login.password,
       user.passwordHash
     );
 
-    if (!passwordCorrect) throw new UserError('Incorrect password', 401);
+    if (!passwordCorrect) {
+      throw new LoginError('Incorrect password', 400);
+    }
 
-    const token = accessToken.generate(user.username);
-
-    return { token };
+    return { token: accessToken.generate(user.username) };
   };
 }

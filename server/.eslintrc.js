@@ -19,6 +19,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  plugins: ['simple-import-sort'],
   rules: {
     eqeqeq: 'warn',
     strict: 'on',
