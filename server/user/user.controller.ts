@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserService } from './user.service';
-import { IRequestUser, IDatabaseUser } from './user.types';
+import { IRequestUser } from './user.types';
 
 export default class UserController {
   static getAll = async (

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { MongooseError } from 'mongoose';
 import { ZodError } from 'zod';
-import UserError from '@/user/user.error';
-import LoginError from '@/login/login.error';
+import UserError from '../user/user.error';
+import LoginError from '../login/login.error';
 
 export const errorHandler = (
   error: unknown,

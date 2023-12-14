@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { IRequestLogin } from './login.types';
-import { UserService } from './login.service';
+import LoginService from './login.service';
 
-export default class LoginController {
+class LoginController {
   static login = async (
     req: Request,
     res: Response,
@@ -10,7 +10,7 @@ export default class LoginController {
   ): Promise<void> => {
     try {
       const requestLogin: IRequestLogin = req.body;
-      const result = await UserService.login(requestLogin);
+      const result = await LoginService.login(requestLogin);
 
       res.status(201).send(result);
     } catch (e) {
@@ -18,3 +18,5 @@ export default class LoginController {
     }
   };
 }
+
+export default LoginController;

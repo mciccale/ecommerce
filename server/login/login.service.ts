@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import { IRequestLogin, ILoginToken } from './login.types';
-import { accessToken } from '@/utils';
-import UserModel from '@/user/user.model';
+import UserModel from '../user/user.model';
+import { accessToken } from '../utils';
 import LoginError from './login.error';
 
-export class UserService {
+class LoginService {
   static login = async (login: IRequestLogin): Promise<ILoginToken> => {
     const user = await UserModel.findOne({
       username: login.username,
@@ -29,3 +29,5 @@ export class UserService {
     return { token: accessToken.generate(user.username) };
   };
 }
+
+export default LoginService;
