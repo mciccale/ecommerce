@@ -1,4 +1,4 @@
 import { errorHandler } from './errorHandler';
-import { jwtExtractor } from './jwtExtractor';
+import { jwtExtractor } from './login';
 
 export { errorHandler, jwtExtractor };

@@ -13,7 +13,7 @@ class LoginController {
       const token = await LoginService.login(requestLogin);
 
       // Only for browser
-      res.cookie('token', token, { httpOnly: true, secure: true });
+      // res.cookie('token', token, { httpOnly: true, secure: true });
       res.status(201).json({ token });
     } catch (e) {
       next(e);
